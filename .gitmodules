@@ -1,0 +1,3 @@
+[submodule "Springroll-Seed"]
+	path = Springroll-Seed
+	url = git@github.com:SpringRoll/Springroll-Seed.git
