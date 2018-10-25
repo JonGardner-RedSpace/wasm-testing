@@ -1,8 +1,9 @@
 var springrollLib = {
-    AddStateEvent: function(name, ptr)
+    AddStateCallback__deps: ['wrapperFunc'],
+    AddStateCallback: function(name, sig, ptr)
     {
-        console.log(Pointer_stringify(name), ptr);
-        //Runtime.dynCall('vff', ptr, [0, 1]);
+        var state = { sig: Pointer_stringify(sig), ptr: ptr };
+        window.gameWrapper.app.state[Pointer_stringify(name)].subscribe(_wrapperFunc.bind(state));
     },
 
     Unity_OnBeforeSceneLoad: function()
@@ -10,8 +11,14 @@ var springrollLib = {
         window.gameWrapper.Unity_OnBeforeSceneLoad();
     },
 
-    Unity_OnAfterSceneLoad: function() {
+    Unity_OnAfterSceneLoad: function()
+    {
         window.gameWrapper.Unity_OnAfterSceneLoad();
+    },
+
+    wrapperFunc: function(curr, last)
+    {
+        Runtime.dynCall(this.sig, this.ptr, [curr, last]);
     }
 }
 mergeInto(LibraryManager.library, springrollLib);

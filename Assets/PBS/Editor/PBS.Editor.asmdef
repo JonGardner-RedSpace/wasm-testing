@@ -1,0 +1,12 @@
+{
+    "name": "PBS.Editor",
+    "references": [
+        "PBS"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

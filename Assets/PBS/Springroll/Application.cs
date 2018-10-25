@@ -14,28 +14,21 @@ namespace PBS.Springroll
         [DllImport("__Internal"), RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static extern void Unity_OnAfterSceneLoad();
 
-        [DllImport("__Internal")]
-        private static extern void AddStateEvent(string name, Action<float, float> callback);
-
+        // https://stackoverflow.com/questions/26882526/generic-pinvoke-in-c-sharp <-- Somthing similar
+        [DllImport("__Internal")] //TODO: write a generic wrapper for this to ensure type safety. 
+        private static extern void AddStateCallback(string name, string sig, Action<float, float> callback);
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnBeforeSceneLoadRuntimeMethod()
         {
-            AddStateEvent("pause", onPausedStateChange);
+            AddStateCallback("soundVolume", "vff", onVolumeChange);
         }
 
-        [MonoPInvokeCallback(typeof(Action))]
+        [MonoPInvokeCallback(typeof(Action<float, float>))]
         public static void onVolumeChange(float val, float last)
         {
-            Debug.Log($"this worked {val}: {last}");
+            Debug.Log($"this worked!! {val}: {last}");
         }
-
-        [MonoPInvokeCallback(typeof(Action))]
-        public static void onPausedStateChange(float val, float last)
-        {
-            Debug.Log($"this worked {val}: {last}");
-        }
-
     }
 }
 
