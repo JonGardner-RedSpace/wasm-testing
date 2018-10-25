@@ -4,8 +4,8 @@
 Temp/
 Library/
 
-Builds/
-Build/
+Builds/WebGL/
+Build/WebGL/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
